@@ -1,4 +1,5 @@
-<<<<<<< HEAD
+*Front
+
 /vendor/
 node_modules/
 npm-debug.log
@@ -54,4 +55,3 @@ auth.json
 Homestead.json
 Homestead.yaml
 Thumbs.db
->>>>>>> f940634 (initial commit)
