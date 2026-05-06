@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Nerve</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <nav class="sidebar d-none d-lg-flex flex-column">
+            <div class="sidebar-header">
+                <a href="index.html" class="text-decoration-none">
+                    <h5 class="fw-bold text-white mb-0">
+                        <i class="bi bi-lightning-charge-fill text-accent"></i> NERVE
+                    </h5>
+                </a>
+            </div>
+            
+            <ul class="nav flex-column sidebar-nav">
+                <li class="nav-item">
+                    <a href="dashboard.html" class="nav-link active">
+                        <i class="bi bi-grid-1x2"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="courses.html" class="nav-link">
+                        <i class="bi bi-journal-bookmark"></i> Courses
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="tasks.html" class="nav-link">
+                        <i class="bi bi-check2-square"></i> Tasks
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="calendar.html" class="nav-link">
+                        <i class="bi bi-calendar3"></i> Calendar
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="timer.html" class="nav-link">
+                        <i class="bi bi-stopwatch"></i> Focus Timer
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="friends.html" class="nav-link">
+                        <i class="bi bi-people"></i> Friends
+                    </a>
+                </li>
+            </ul>
+
+            <div class="mt-auto">
+                <ul class="nav flex-column sidebar-nav">
+                    <li class="nav-item">
+                        <a href="notifications.html" class="nav-link">
+                            <i class="bi bi-bell"></i> Notifications
+                            <span class="badge bg-accent ms-auto">3</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="profile.html" class="nav-link">
+                            <i class="bi bi-person"></i> Profile
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="dashboard-header">
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <div>
+                        <h4 class="fw-bold mb-0">Good morning, Alex!</h4>
+                        <small class="text-secondary">Here&apos;s your overview for today</small>
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-outline-light position-relative">
+                        <i class="bi bi-bell"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-accent">3</span>
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center gap-2" data-bs-toggle="dropdown">
+                            <div class="avatar-sm">A</div>
+                            <span class="d-none d-md-inline">Alex</span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i> Profile</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item text-danger" href="index.html"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Stats Row -->
+                <div class="row g-4 mb-4">
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="bi bi-check2-circle"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Tasks Done</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card cyan">
+                            <div class="stat-icon cyan">
+                                <i class="bi bi-clock"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">4.5h</div>
+                                <div class="stat-label">Study Time</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card orange">
+                            <div class="stat-icon orange">
+                                <i class="bi bi-fire"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">7</div>
+                                <div class="stat-label">Day Streak</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 col-lg-3">
+                        <div class="stat-card green">
+                            <div class="stat-icon green">
+                                <i class="bi bi-graph-up"></i>
+                            </div>
+                            <div>
+                                <div class="stat-value">89%</div>
+                                <div class="stat-label">Completion</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4">
+                    <!-- Upcoming Tasks -->
+                    <div class="col-lg-8">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="fw-bold mb-0">Upcoming Tasks</h6>
+                                <a href="tasks.html" class="btn btn-sm btn-outline-accent">View All</a>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="task-list">
+                                    <div class="task-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="task1">
+                                        </div>
+                                        <div class="task-info">
+                                            <div class="task-title">Complete Calculus Assignment</div>
+                                            <div class="task-meta">
+                                                <span class="badge bg-accent-subtle text-accent">Math 201</span>
+                                                <span class="text-secondary"><i class="bi bi-clock me-1"></i>Due Tomorrow</span>
+                                            </div>
+                                        </div>
+                                        <span class="priority-badge high">High</span>
+                                    </div>
+                                    <div class="task-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="task2">
+                                        </div>
+                                        <div class="task-info">
+                                            <div class="task-title">Read Chapter 5 - Biology</div>
+                                            <div class="task-meta">
+                                                <span class="badge bg-green-subtle text-green">Bio 101</span>
+                                                <span class="text-secondary"><i class="bi bi-clock me-1"></i>Due in 2 days</span>
+                                            </div>
+                                        </div>
+                                        <span class="priority-badge medium">Medium</span>
+                                    </div>
+                                    <div class="task-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="task3">
+                                        </div>
+                                        <div class="task-info">
+                                            <div class="task-title">Physics Lab Report</div>
+                                            <div class="task-meta">
+                                                <span class="badge bg-purple-subtle text-purple">Physics 101</span>
+                                                <span class="text-secondary"><i class="bi bi-clock me-1"></i>Due in 3 days</span>
+                                            </div>
+                                        </div>
+                                        <span class="priority-badge medium">Medium</span>
+                                    </div>
+                                    <div class="task-item">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="task4">
+                                        </div>
+                                        <div class="task-info">
+                                            <div class="task-title">Review Lecture Notes</div>
+                                            <div class="task-meta">
+                                                <span class="badge bg-cyan-subtle text-cyan">CS 301</span>
+                                                <span class="text-secondary"><i class="bi bi-clock me-1"></i>Due in 5 days</span>
+                                            </div>
+                                        </div>
+                                        <span class="priority-badge low">Low</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Timer -->
+                    <div class="col-lg-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h6 class="fw-bold mb-0">Quick Focus</h6>
+                            </div>
+                            <div class="card-body text-center">
+                                <div class="timer-display mb-3">
+                                    <div class="timer-circle-large">
+                                        <span id="quickTimer">25:00</span>
+                                    </div>
+                                </div>
+                                <p class="text-secondary mb-3">Focus Session</p>
+                                <div class="d-flex gap-2 justify-content-center">
+                                    <button class="btn btn-accent" id="startQuickTimer">
+                                        <i class="bi bi-play-fill"></i> Start
+                                    </button>
+                                    <a href="timer.html" class="btn btn-outline-light">
+                                        Full Timer
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-4 mt-0">
+                    <!-- Course Progress -->
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h6 class="fw-bold mb-0">Course Progress</h6>
+                                <a href="courses.html" class="btn btn-sm btn-outline-accent">View All</a>
+                            </div>
+                            <div class="card-body">
+                                <div class="course-progress-item mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-semibold">Math 201 - Calculus II</span>
+                                        <span class="text-accent">75%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar bg-accent" style="width: 75%"></div>
+                                    </div>
+                                </div>
+                                <div class="course-progress-item mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-semibold">CS 301 - Data Structures</span>
+                                        <span class="text-cyan">60%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 60%; background: var(--nerve-cyan)"></div>
+                                    </div>
+                                </div>
+                                <div class="course-progress-item mb-4">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-semibold">Bio 101 - Introduction to Biology</span>
+                                        <span class="text-green">90%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 90%; background: var(--nerve-green)"></div>
+                                    </div>
+                                </div>
+                                <div class="course-progress-item">
+                                    <div class="d-flex justify-content-between mb-2">
+                                        <span class="fw-semibold">Physics 101 - Mechanics</span>
+                                        <span class="text-purple">45%</span>
+                                    </div>
+                                    <div class="progress" style="height: 8px;">
+                                        <div class="progress-bar" style="width: 45%; background: var(--nerve-purple)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="col-lg-6">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h6 class="fw-bold mb-0">Recent Activity</h6>
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="activity-list">
+                                    <div class="activity-item">
+                                        <div class="activity-icon green">
+                                            <i class="bi bi-check"></i>
+                                        </div>
+                                        <div class="activity-info">
+                                            <div class="activity-text">Completed "Linear Algebra Quiz"</div>
+                                            <small class="text-secondary">2 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon cyan">
+                                            <i class="bi bi-stopwatch"></i>
+                                        </div>
+                                        <div class="activity-info">
+                                            <div class="activity-text">Focus session - 45 minutes</div>
+                                            <small class="text-secondary">4 hours ago</small>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon accent">
+                                            <i class="bi bi-plus"></i>
+                                        </div>
+                                        <div class="activity-info">
+                                            <div class="activity-text">Added new task "Physics Lab Report"</div>
+                                            <small class="text-secondary">Yesterday</small>
+                                        </div>
+                                    </div>
+                                    <div class="activity-item">
+                                        <div class="activity-icon orange">
+                                            <i class="bi bi-fire"></i>
+                                        </div>
+                                        <div class="activity-info">
+                                            <div class="activity-text">7 day streak achieved!</div>
+                                            <small class="text-secondary">Yesterday</small>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Mobile Sidebar -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileSidebar">
+        <div class="offcanvas-header">
+            <h5 class="fw-bold"><i class="bi bi-lightning-charge-fill text-accent"></i> NERVE</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+        </div>
+        <div class="offcanvas-body p-0">
+            <ul class="nav flex-column sidebar-nav">
+                <li class="nav-item"><a href="dashboard.html" class="nav-link active"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
+                <li class="nav-item"><a href="courses.html" class="nav-link"><i class="bi bi-journal-bookmark"></i> Courses</a></li>
+                <li class="nav-item"><a href="tasks.html" class="nav-link"><i class="bi bi-check2-square"></i> Tasks</a></li>
+                <li class="nav-item"><a href="calendar.html" class="nav-link"><i class="bi bi-calendar3"></i> Calendar</a></li>
+                <li class="nav-item"><a href="timer.html" class="nav-link"><i class="bi bi-stopwatch"></i> Focus Timer</a></li>
+                <li class="nav-item"><a href="friends.html" class="nav-link"><i class="bi bi-people"></i> Friends</a></li>
+                <li class="nav-item"><a href="notifications.html" class="nav-link"><i class="bi bi-bell"></i> Notifications</a></li>
+                <li class="nav-item"><a href="profile.html" class="nav-link"><i class="bi bi-person"></i> Profile</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
