@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class NotificationUser extends Model
+class NotificationUser extends Pivot
 {
-    /** @use HasFactory<\Database\Factories\NotificationUserFactory> */
-    use HasFactory;
+    protected $table = 'notification_user';
+
+    protected $fillable = ['notification_id', 'user_id', 'is_read', 'read_at'];
+
+    protected $casts = ['read_at' => 'datetime', 'is_read' => 'boolean'];
 }

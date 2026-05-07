@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Quick Timer functionality
     const quickTimerDisplay = document.getElementById('quickTimer');
     const startQuickTimerBtn = document.getElementById('startQuickTimer');
-    
+
     if (startQuickTimerBtn && quickTimerDisplay) {
         let timerRunning = false;
         let timeLeft = 25 * 60; // 25 minutes in seconds
@@ -57,18 +57,21 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Update greeting based on time
-    const greeting = document.querySelector('.dashboard-header h4');
-    if (greeting) {
+    const greetingElement = document.getElementById('greeting-text');
+
+    if (greetingElement) {
         const hour = new Date().getHours();
         let greetingText = 'Good morning';
+
         if (hour >= 12 && hour < 17) {
             greetingText = 'Good afternoon';
         } else if (hour >= 17) {
             greetingText = 'Good evening';
         }
-        greeting.textContent = `${greetingText}, Alex!`;
+
+        // This updates ONLY the "Good morning" part
+        greetingElement.textContent = greetingText;
     }
-});
 
 // Utility functions for other pages
 function formatTime(seconds) {
@@ -83,10 +86,11 @@ function showToast(message, type = 'success') {
     toast.className = `toast-notification ${type}`;
     toast.textContent = message;
     document.body.appendChild(toast);
-    
+
     setTimeout(() => toast.classList.add('show'), 10);
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
+})

@@ -2,11 +2,16 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Notification extends Model
 {
-    /** @use HasFactory<\Database\Factories\NotificationFactory> */
-    use HasFactory;
+    protected $fillable = ['title', 'content', 'link', 'type', 'sent_at'];
+
+    protected $casts = ['sent_at' => 'datetime'];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('is_read', 'read_at');
+    }
 }

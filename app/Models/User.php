@@ -2,48 +2,23 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $fillable = ['name', 'email', 'password'];
+    protected $hidden = ['password', 'remember_token'];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
-
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    // Relationships
+    public function courses() { return $this->hasMany(Course::class); }
+    public function tasks() { return $this->hasMany(Task::class); }
+    public function streak() { return $this->hasOne(Streak::class); }
+    public function timers() { return $this->hasMany(Timer::class); }
+    public function groups() { return $this->belongsToMany(Group::class)->withPivot('role'); }
+    public function notifications() { return $this->belongsToMany(Notification::class)->withPivot('is_read'); }
+    public function achievements() { return $this->belongsToMany(Achievement::class)->withPivot('earned_at'); }
 }

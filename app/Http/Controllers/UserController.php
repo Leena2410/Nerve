@@ -32,6 +32,10 @@ class UserController extends Controller
         // Auto-login the user after they register
         Auth::login($user);
 
-        return redirect()->route('dashboard');
+        return response()->json([
+            'status' => true,
+            'message' => 'Account created successfully!',
+            'redirect' => route('dashboard')
+        ], 200);
     }
 }

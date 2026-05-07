@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 
-class ChatUser extends Model
+class ChatUser extends Pivot
 {
-    /** @use HasFactory<\Database\Factories\ChatUserFactory> */
-    use HasFactory;
+    protected $table = 'chat_user';
+
+    protected $fillable = ['chat_id', 'user_id', 'last_read_at'];
+
+    protected $casts = ['last_read_at' => 'datetime'];
 }

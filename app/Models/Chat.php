@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Chat extends Model
 {
-    /** @use HasFactory<\Database\Factories\ChatFactory> */
-    use HasFactory;
+    protected $fillable = ['type'];
+
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class)->withPivot('last_read_at');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

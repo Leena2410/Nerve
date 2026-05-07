@@ -19,6 +19,8 @@ Route::post('/register', [UserController::class, 'store'])->name('register');
 // Log out ::::: to do: move this inside an auth group
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::prefix('dashbored')->middleware('auth')->group(function(){
+Route::prefix('dashboard')->middleware('auth')->group(function(){
     Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+    Route::view('parent', 'dashboard.parent')->name('parent');
+    Route::view('courses', 'dashboard.courses')->name('courses');
 });

@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Achievement extends Model
 {
-    /** @use HasFactory<\Database\Factories\AchievementFactory> */
-    use HasFactory;
+    protected $fillable = ['name', 'description', 'badge_path', 'type'];
+
+    public function users() { return $this->belongsToMany(User::class)->withPivot('earned_at'); }
 }
