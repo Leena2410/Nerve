@@ -1,252 +1,228 @@
 @extends('dashboard.parent')
 
 @section('active_page', 'courses')
-{{--
-    home
-    courses
-    tasks
-    calender
-    focus
-    friends
-    notifications
-    profile
---}}
 
 @section('style')
 <style>
+    .course-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding-left: 4px; /* Space for the accent line */
+    }
 
+    .card-accent-line {
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        z-index: 5;
+    }
+
+    .status-indicator {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        box-shadow: 0 0 8px currentColor; /* Makes the color glow slightly */
+    }
+
+    /* Subtle glow animation for pending tasks */
+    .status-indicator {
+        position: relative;
+    }
+
+    .status-indicator::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: inherit;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.6; }
+        70% { transform: scale(2.5); opacity: 0; }
+        100% { transform: scale(1); opacity: 0; }
+    }
 </style>
 @endsection
-
-
 @section('content')
-        <!-- Main Content -->
-            <header class="dashboard-header">
-                <div class="d-flex align-items-center gap-3">
-                    <button class="btn btn-outline-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
-                        <i class="bi bi-list"></i>
-                    </button>
+    <header class="dashboard-header">
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-outline-light d-lg-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileSidebar">
+                <i class="bi bi-list"></i>
+            </button>
+            <div>
+                <h4 class="fw-bold mb-0">Courses</h4>
+                <small class="text-secondary">Manage your classes and track progress</small>
+            </div>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+            <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#addCourseModal">
+                <i class="bi bi-plus-lg me-1"></i> Add Course
+            </button>
+        </div>
+    </header>
+
+    <div class="dashboard-content">
+        <!-- Stats Section -->
+        <div class="row g-3 mb-4">
+            <div class="col-6 col-md-3">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="bi bi-journal-bookmark"></i></div>
                     <div>
-                        <h4 class="fw-bold mb-0">Courses</h4>
-                        <small class="text-secondary">Manage your classes and track progress</small>
-                    </div>
-                </div>
-                <div class="d-flex align-items-center gap-3">
-                    <button class="btn btn-accent" data-bs-toggle="modal" data-bs-target="#addCourseModal">
-                        <i class="bi bi-plus-lg me-1"></i> Add Course
-                    </button>
-                </div>
-            </header>
-
-            <div class="dashboard-content">
-                <!-- Course Stats -->
-                <div class="row g-3 mb-4">
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card">
-                            <div class="stat-icon"><i class="bi bi-journal-bookmark"></i></div>
-                            <div>
-                                <div class="stat-value">4</div>
-                                <div class="stat-label">Active Courses</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card cyan">
-                            <div class="stat-icon cyan"><i class="bi bi-check-circle"></i></div>
-                            <div>
-                                <div class="stat-value">24</div>
-                                <div class="stat-label">Completed Tasks</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card green">
-                            <div class="stat-icon green"><i class="bi bi-graph-up"></i></div>
-                            <div>
-                                <div class="stat-value">3.7</div>
-                                <div class="stat-label">GPA</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="stat-card orange">
-                            <div class="stat-icon orange"><i class="bi bi-hourglass-split"></i></div>
-                            <div>
-                                <div class="stat-value">15</div>
-                                <div class="stat-label">Credit Hours</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course Cards -->
-                <div class="row g-4">
-                    <div class="col-md-6 col-xl-4">
-                        <div class="course-card">
-                            <div class="course-card-header" style="background: var(--nerve-accent);"></div>
-                            <div class="course-card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h5 class="fw-bold mb-0">Calculus II</h5>
-                                    <span class="badge bg-accent-subtle text-accent">In Progress</span>
-                                </div>
-                                <p class="text-secondary mb-3">MATH 201 - Advanced calculus concepts</p>
-                                <div class="d-flex justify-content-between text-secondary mb-2">
-                                    <small><i class="bi bi-person me-1"></i> Dr. Smith</small>
-                                    <small><i class="bi bi-clock me-1"></i> MWF 9:00 AM</small>
-                                </div>
-                                <div class="progress mt-3" style="height: 6px;">
-                                    <div class="progress-bar bg-accent" style="width: 75%"></div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="text-secondary">Progress</small>
-                                    <small class="text-accent fw-semibold">75%</small>
-                                </div>
-                            </div>
-                            <div class="course-card-footer d-flex justify-content-between align-items-center">
-                                <span class="badge bg-green-subtle text-green">Grade: A-</span>
-                                <button class="btn btn-sm btn-outline-accent">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xl-4">
-                        <div class="course-card">
-                            <div class="course-card-header" style="background: var(--nerve-cyan);"></div>
-                            <div class="course-card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h5 class="fw-bold mb-0">Data Structures</h5>
-                                    <span class="badge bg-accent-subtle text-accent">In Progress</span>
-                                </div>
-                                <p class="text-secondary mb-3">CS 301 - Algorithms and data organization</p>
-                                <div class="d-flex justify-content-between text-secondary mb-2">
-                                    <small><i class="bi bi-person me-1"></i> Prof. Johnson</small>
-                                    <small><i class="bi bi-clock me-1"></i> TTh 2:00 PM</small>
-                                </div>
-                                <div class="progress mt-3" style="height: 6px;">
-                                    <div class="progress-bar" style="width: 60%; background: var(--nerve-cyan)"></div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="text-secondary">Progress</small>
-                                    <small class="text-cyan fw-semibold">60%</small>
-                                </div>
-                            </div>
-                            <div class="course-card-footer d-flex justify-content-between align-items-center">
-                                <span class="badge bg-green-subtle text-green">Grade: B+</span>
-                                <button class="btn btn-sm btn-outline-accent">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xl-4">
-                        <div class="course-card">
-                            <div class="course-card-header" style="background: var(--nerve-green);"></div>
-                            <div class="course-card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h5 class="fw-bold mb-0">Biology</h5>
-                                    <span class="badge bg-accent-subtle text-accent">In Progress</span>
-                                </div>
-                                <p class="text-secondary mb-3">BIO 101 - Introduction to biological sciences</p>
-                                <div class="d-flex justify-content-between text-secondary mb-2">
-                                    <small><i class="bi bi-person me-1"></i> Dr. Williams</small>
-                                    <small><i class="bi bi-clock me-1"></i> MWF 11:00 AM</small>
-                                </div>
-                                <div class="progress mt-3" style="height: 6px;">
-                                    <div class="progress-bar" style="width: 90%; background: var(--nerve-green)"></div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="text-secondary">Progress</small>
-                                    <small class="text-green fw-semibold">90%</small>
-                                </div>
-                            </div>
-                            <div class="course-card-footer d-flex justify-content-between align-items-center">
-                                <span class="badge bg-green-subtle text-green">Grade: A</span>
-                                <button class="btn btn-sm btn-outline-accent">View Details</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6 col-xl-4">
-                        <div class="course-card">
-                            <div class="course-card-header" style="background: var(--nerve-purple);"></div>
-                            <div class="course-card-body">
-                                <div class="d-flex justify-content-between align-items-start mb-2">
-                                    <h5 class="fw-bold mb-0">Physics</h5>
-                                    <span class="badge bg-accent-subtle text-accent">In Progress</span>
-                                </div>
-                                <p class="text-secondary mb-3">PHYS 101 - Classical mechanics fundamentals</p>
-                                <div class="d-flex justify-content-between text-secondary mb-2">
-                                    <small><i class="bi bi-person me-1"></i> Prof. Chen</small>
-                                    <small><i class="bi bi-clock me-1"></i> TTh 10:00 AM</small>
-                                </div>
-                                <div class="progress mt-3" style="height: 6px;">
-                                    <div class="progress-bar" style="width: 45%; background: var(--nerve-purple)"></div>
-                                </div>
-                                <div class="d-flex justify-content-between mt-2">
-                                    <small class="text-secondary">Progress</small>
-                                    <small class="text-purple fw-semibold">45%</small>
-                                </div>
-                            </div>
-                            <div class="course-card-footer d-flex justify-content-between align-items-center">
-                                <span class="badge bg-orange-subtle text-orange">Grade: B</span>
-                                <button class="btn btn-sm btn-outline-accent">View Details</button>
-                            </div>
-                        </div>
+                        <div class="stat-value">{{ $courses->count() }}</div>
+                        <div class="stat-label">Active Courses</div>
                     </div>
                 </div>
             </div>
-
-            <!-- Add Course Modal -->
-            <div class="modal fade" id="addCourseModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fw-bold">Add New Course</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="mb-3">
-                                    <label class="form-label">Course Name</label>
-                                    <input type="text" class="form-control" placeholder="e.g., Calculus II">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Course Code</label>
-                                    <input type="text" class="form-control" placeholder="e.g., MATH 201">
-                                </div>
-                                <div class="mb-3">
-                                    <label class="form-label">Instructor</label>
-                                    <input type="text" class="form-control" placeholder="e.g., Dr. Smith">
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Schedule</label>
-                                        <input type="text" class="form-control" placeholder="e.g., MWF 9:00 AM">
-                                    </div>
-                                    <div class="col-6 mb-3">
-                                        <label class="form-label">Color</label>
-                                        <select class="form-select">
-                                            <option value="accent">Indigo</option>
-                                            <option value="cyan">Cyan</option>
-                                            <option value="green">Green</option>
-                                            <option value="purple">Purple</option>
-                                            <option value="orange">Orange</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-accent" data-bs-dismiss="modal">Add Course</button>
-                        </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card cyan">
+                    <div class="stat-icon cyan"><i class="bi bi-check-circle"></i></div>
+                    <div>
+                        <div class="stat-value">{{ $completedTasksCount ?? 0 }}</div>
+                        <div class="stat-label">Completed Tasks</div>
                     </div>
                 </div>
             </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card green">
+                    <div class="stat-icon green"><i class="bi bi-calendar-check"></i></div>
+                    <div>
+                        <div class="stat-value">{{ $courses->where('credits', '>', 0)->count() }}</div>
+                        <div class="stat-label">Credit Courses</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-md-3">
+                <div class="stat-card orange">
+                    <div class="stat-icon orange"><i class="bi bi-hourglass-split"></i></div>
+                    <div>
+                        <div class="stat-value">{{ $totalCredits ?? 0 }}</div>
+                        <div class="stat-label">Total Credits</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
+        <!-- Course Cards Grid -->
+        <div class="row g-4" id="courses-container">
+            @forelse($courses as $course)
+                @php
+                    $pendingCount = $course->tasks_count ?? 0;
+                    $indicatorColor = $pendingCount > 0 ? '#FF3B30' : '#4CD964';
+                @endphp
+
+                <div class="col-md-6 col-xl-4">
+                    <div class="course-card position-relative overflow-hidden">
+                        <div class="card-accent-line" style="background: {{ $course->color_code }}"></div>
+
+                        <div class="course-card-header" style="background: {{ $course->color_code }}; opacity: 0.8;"></div>
+
+                        <div class="course-card-body">
+                            <div class="d-flex justify-content-between align-items-start mb-2">
+                                <h5 class="fw-bold mb-0 text-truncate" style="max-width: 70%;">{{ $course->name }}</h5>
+                                <span class="badge bg-accent-subtle text-accent">{{ $course->credits ?? 0 }} Credits</span>
+                            </div>
+
+                            <p class="text-secondary mb-3 small line-clamp-2">
+                                {{ $course->description ?? 'No description provided.' }}
+                            </p>
+                        </div>
+
+                        <div class="course-card-footer d-flex justify-content-between align-items-center">
+                            <div class="d-flex align-items-center gap-2">
+                                <div class="status-indicator" style="background: {{ $indicatorColor }}"></div>
+                                <small class="fw-medium {{ $pendingCount > 0 ? 'text-white' : 'text-secondary' }}">
+                                    {{ $pendingCount > 0 ? $pendingCount . ' Tasks Pending' : 'All Caught Up' }}
+                                </small>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a href="{{ route('courses.show', $course->id) }}" class="btn btn-sm btn-outline-accent">View</a>
+                                <button onclick="confirmDestroy('{{ route('courses.destroy', $course->id) }}', this)" class="btn btn-sm btn-outline-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <p class="text-secondary">No courses found. Add your first course to begin tracking.</p>
+                </div>
+            @endforelse
+        </div>
+    </div>
+
+    <!-- Add Course Modal -->
+    <div class="modal fade" id="addCourseModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">Add New Course</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="error_alert" class="alert alert-danger" hidden>
+                        <ul id="error_messages_ul" class="mb-0 small"></ul>
+                    </div>
+
+                    <form id="create_form">
+                        @csrf
+                        <div class="mb-3">
+                            <label class="form-label">Course Name</label>
+                            <input type="text" name="name" class="form-control" placeholder="e.g., Web Development" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea name="description" class="form-control" rows="3" placeholder="Describe the course..."></textarea>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Credits</label>
+                                <input type="number" name="credits" class="form-control" placeholder="3">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <label class="form-label">Color Theme</label>
+                                <input type="color" name="color_code" class="form-control form-control-color w-100" value="#4F46E5">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-accent" onclick="performStore()">Add Course</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('script')
 <script>
+    function performStore() {
+        const form = document.getElementById('create_form');
+        const formData = new FormData();
 
+        formData.append('name', form.querySelector('input[name="name"]').value);
+        formData.append('description', form.querySelector('textarea[name="description"]').value);
+        formData.append('credits', form.querySelector('input[name="credits"]').value);
+        formData.append('color_code', form.querySelector('input[name="color_code"]').value);
+        formData.append('_token', '{{ csrf_token() }}');
+
+        store("{{ route('courses.store') }}", formData);
+
+        setTimeout(() => {
+            const errorList = document.getElementById('error_messages_ul');
+            if (!errorList || errorList.children.length === 0) {
+                window.location.reload();
+            }
+        }, 1600);
+    }
 </script>
 @endsection
