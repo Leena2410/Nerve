@@ -142,7 +142,8 @@
                             </div>
                             <div class="d-flex gap-2">
                                 <a href="{{ route('courses.show', $course->id) }}" class="btn btn-sm btn-outline-accent">View</a>
-                                <button onclick="confirmDestroy('{{ route('courses.destroy', $course->id) }}', this)" class="btn btn-sm btn-outline-danger">
+                                <button onclick="confirmDestroy('{{ route('courses.destroy', $course->id) }}', this)"
+                                        class="btn btn-sm btn-outline-danger px-3 shadow-sm border-opacity-25">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -205,24 +206,95 @@
 
 @section('script')
 <script>
-    function performStore() {
-        const form = document.getElementById('create_form');
-        const formData = new FormData();
+function performStore() {
+    const form = document.getElementById('create_form');
+    const formData = new FormData(form);
+    const errorAlert = document.getElementById('error_alert');
+    const errorList = document.getElementById('error_messages_ul');
 
-        formData.append('name', form.querySelector('input[name="name"]').value);
-        formData.append('description', form.querySelector('textarea[name="description"]').value);
-        formData.append('credits', form.querySelector('input[name="credits"]').value);
-        formData.append('color_code', form.querySelector('input[name="color_code"]').value);
-        formData.append('_token', '{{ csrf_token() }}');
+    // Reset UI errors
+    errorAlert.hidden = true;
+    errorList.innerHTML = '';
 
-        store("{{ route('courses.store') }}", formData);
+    // Direct Axios call for total control
+    axios.post("{{ route('courses.store') }}", formData)
+        .then(response => {
+            // Dark Mode Alert
+            Swal.fire({
+                title: 'Course Created!',
+                text: 'Refreshing your dashboard...',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1200,
+                background: '#1a1a2e',
+                color: '#fff'
+            });
 
-        setTimeout(() => {
-            const errorList = document.getElementById('error_messages_ul');
-            if (!errorList || errorList.children.length === 0) {
+            // Force reload to update stats and the grid
+            setTimeout(() => {
                 window.location.reload();
+            }, 1300);
+        })
+        .catch(error => {
+            // If Laravel validation fails (422)
+            if (error.response && error.response.status === 422) {
+                errorAlert.hidden = false;
+                const errors = error.response.data.errors;
+
+                Object.keys(errors).forEach(key => {
+                    const li = document.createElement('li');
+                    li.textContent = errors[key][0];
+                    errorList.appendChild(li);
+                });
+            } else {
+                console.error(error);
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Something went wrong. Check the console.',
+                    icon: 'error',
+                    background: '#1a1a2e',
+                    color: '#fff'
+                });
             }
-        }, 1600);
-    }
+        });
+}
+function confirmDestroy(url, button) {
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "This will move the course to trash.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'Cancel', // Forces English
+        confirmButtonColor: '#FF3B30',
+        background: '#1a1a2e',      // Forces Dark Background
+        color: '#fff',              // Forces White Text
+        customClass: {
+            popup: 'rounded-4 border border-white border-opacity-10'
+        }
+    }).then((result) => {
+        if (result.isConfirmed) {
+            axios.delete(url).then(response => {
+                Swal.fire({
+                    title: 'Deleted!',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 800,
+                    background: '#1a1a2e',
+                    color: '#fff'
+                });
+
+                // Logic to handle where to go after delete
+                if (window.location.pathname.includes('/courses/')) {
+                    // If we are on the SHOW page, go back to list
+                    window.location.href = "{{ route('courses') }}";
+                } else {
+                    // If we are on the INDEX page, just reload
+                    setTimeout(() => window.location.reload(), 850);
+                }
+            });
+        }
+    });
+}
 </script>
 @endsection

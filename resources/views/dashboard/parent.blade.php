@@ -109,6 +109,25 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="{{ asset('js/dashboard.js') }}"></script>
     <script src="{{ asset('js/crud.js') }}"></script>
+
+    <script>
+        const Toast = Swal.mixin({
+            background: '#1a1a2e',
+            color: '#fff',
+            confirmButtonColor: '#4F46E5', // Your accent color
+            cancelButtonColor: '#3085d6',
+            customClass: {
+                popup: 'rounded-4 border border-secondary border-opacity-10 shadow-lg'
+            }
+        });
+
+        Swal.setDefaults({
+            background: '#1a1a2e',
+            color: '#fff',
+            confirmButtonColor: '#4F46E5',
+            cancelButtonColor: '#4b5563'
+        });
+    </script>
     @yield('script')
 </body>
 </html>
