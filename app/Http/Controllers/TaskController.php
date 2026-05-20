@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +14,14 @@ class TaskController extends Controller
      */
     public function index()
     {
-        //
+        $tasks = Task::where('user_id', Auth::user()->id)
+            ->with('course')
+            ->latest()
+            ->get();
+
+        $courses = Course::where('user_id', Auth::user()->id)->get();
+
+        return view('dashboard.tasks.index', compact('tasks', 'courses'));
     }
 
     /**

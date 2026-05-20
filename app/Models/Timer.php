@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Timer extends Model
 {
-    protected $fillable = ['user_id', 'type', 'started_at', 'stopped_at', 'duration_minutes'];
+    protected $fillable = ['user_id', 'type', 'started_at', 'stopped_at', 'duration_minutes', 'course_id'];
 
     protected $casts = ['started_at' => 'datetime', 'stopped_at' => 'datetime'];
 

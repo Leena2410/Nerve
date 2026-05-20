@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TaskController;
+use App\Http\Controllers\TimerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -31,12 +32,15 @@ Route::prefix('dashboard')->middleware('auth')->group(function(){
     ]);
 
     Route::prefix('tasks')->group(function(){
+        Route::get('/', [TaskController::class, 'index'])->name('tasks');
         Route::get('/{task}/edit', [TaskController::class, 'edit'])->name('tasks.edit');
         Route::patch('/{task}/toggle', [TaskController::class, 'toggle'])->name('tasks.toggle');
         Route::delete('/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');
         Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
         Route::put('/{task}', [TaskController::class, 'update'])->name('tasks.update');
-
     });
+
+    Route::post('/timers/start', [TimerController::class, 'start'])->name('timers.start');
+    Route::patch('/timers/{timer}/stop', [TimerController::class, 'stop'])->name('timers.stop');
 
 });

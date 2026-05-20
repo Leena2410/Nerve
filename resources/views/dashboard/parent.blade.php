@@ -40,7 +40,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link {{ $page === 'tasks' ? 'active' : '' }}">
+                    <a href="{{ route('tasks') }}" class="nav-link {{ $page === 'tasks' ? 'active' : '' }}">
                         <i class="bi bi-check2-square"></i> Tasks
                     </a>
                 </li>
@@ -94,7 +94,7 @@
             <ul class="nav flex-column sidebar-nav">
                 <li class="nav-item"><a href="{{ route('dashboard') }}" class="nav-link {{ $page === 'home' ? 'active' : '' }}"><i class="bi bi-grid-1x2"></i> Dashboard</a></li>
                 <li class="nav-item"><a href="{{ route('courses') }}" class="nav-link {{ $page === 'courses' ? 'active' : '' }}"><i class="bi bi-journal-bookmark"></i> Courses</a></li>
-                <li class="nav-item"><a href="#" class="nav-link {{ $page === 'tasks' ? 'active' : '' }}"><i class="bi bi-check2-square"></i> Tasks</a></li>
+                <li class="nav-item"><a href="{{ route('tasks') }}" class="nav-link {{ $page === 'tasks' ? 'active' : '' }}"><i class="bi bi-check2-square"></i> Tasks</a></li>
                 <li class="nav-item"><a href="#" class="nav-link {{ $page === 'calender' ? 'active' : '' }}"><i class="bi bi-calendar3"></i> Calendar</a></li>
                 <li class="nav-item"><a href="#" class="nav-link {{ $page === 'focus' ? 'active' : '' }}"><i class="bi bi-stopwatch"></i> Focus Timer</a></li>
                 <li class="nav-item"><a href="#" class="nav-link {{ $page === 'friends' ? 'active' : '' }}"><i class="bi bi-people"></i> Friends</a></li>
